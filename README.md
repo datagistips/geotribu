@@ -1,3 +1,6 @@
+# Geotribu
+Reformater, nettoyer, analyser Géotribu
+
 ## `reformatRdp`
 Exemple d'une rdp mal formatée : https://static.geotribu.fr/rdp/2011/rdp_2011-12-23/#open-data
 
