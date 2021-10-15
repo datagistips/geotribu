@@ -1,24 +1,69 @@
+reformatRdp <- function(rdp) {
+  
+  # Lecture de la RDP
+  con <- file(rdp, "r", encoding = "UTF-8")
+  lines <- readLines(con)
+  close(con)
+  
+  # File name
+  fileName <- gsub("^.*/(.*\\.md)$", "\\1", rdp)
+  
+  # Log file
+  logFile <- file.path(rdpFolder, gsub(".md", "-log.md", fileName))
+  if(file.exists(logFile)) file.remove(logFile)
+  
+  for(j in 1:length(lines)) {
+    myLine <- lines[j]
+    
+    reformatLine <- function(myLine) {
+      newLine <- NULL
+      # Avec hashtags ou pas
+      if(isNotWellFormatted1(myLine)) {
+        newLine <- reformatTitle1(myLine)
+      }
+      
+      # Avec une image au début
+      if(isNotWellFormatted2(myLine)) {
+        newLine <- reformatTitle2(myLine)
+      }
+      
+      return(newLine)
+    }
+    
+    newLine <- reformatLine(myLine)
+    
+    # Réaffectation
+    if(is.null(newLine)) {
+      lines[j] <- myLine
+    } else {
+      lines[j] <- newLine
+      message(paste0(substr(myLine, 1, 100), "=>", substr(newLine, 1, 100)))
+      writeLog(logFile, myLine, newLine)
+    }
+  }
+  
+  # Export de la nouvelle version
+  repairedRdp <- gsub(".md", "-new.md", rdp)
+  con <- file(repairedRdp)
+  writeLines(lines, con)
+  close(con)
+  
+  # Récupérer les images d'un article (expérimental)
+  # test <- lines[85]
+  # getImgs(test)
+  message("\n")
+}
+
+
 myLine <- "![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**Filtres temporels dans GvSIG"
 
 # myLine <- "### L'Open Data en image** tototototo"
 # myLine <- "## L'Open Data en image** tototototo"
 # myLine <- "L'Open Data en image** tototototo"
 # myLine <- " **OpenLayers Mobile**"
-isNotWellFormatted <- function(myLine) {
+isNotWellFormatted1 <- function(myLine) {
   grepl("^(###?\\s)?.*\\*\\*", myLine)
 }
-
-# isNotWellFormatted2 <- function(myLine) {
-#   grepl("^###?\\s?\\*\\*", myLine)
-# }
-# 
-# isNotWellFormatted3 <- function(myLine) {
-#   grepl("^\\s?(.*)\\*\\*(.*)", myLine)
-# }
-# 
-# isNotWellFormatted4 <- function(myLine) {
-#   grepl("^\\s?\\*\\*.*\\*\\*", myLine)
-# }
 
 # countHashtags("## L'Open Data en image** tototototo")
 # countHashtags("### L'Open Data en image** tototototo")
@@ -55,7 +100,7 @@ getNotWellFormatted <- function(lines) {
   return(list(w = w, lines = lines[w]))
 }
 
-reformatTitle <- function(myLine) {
+reformatTitle1 <- function(myLine) {
   hashtags <- rep("#", countHashtags(myLine)) %>% paste(collapse="")
   if(hashtags == "") {
     regex <- "^\\s?(?:\\*\\*)?(.*)\\*\\*\\s?(.*)$"
@@ -66,7 +111,12 @@ reformatTitle <- function(myLine) {
   }
 }
 
-# reformatTitle(myLine)
+# Liste les fichiers du dossier, pour l'année concernée
+listRdpsForYear <- function(year) {
+  rdps <- list.files(sprintf("%s/%d", rdpFolder, year), full.names = T)
+  rdps <- rdps[which(grepl("^(?!.*(new|old)).*$", rdps, perl = TRUE))]
+  rdps
+}
 
 imgPar <- function(img) {
   regex <- "^.*!\\[(.*)\\]\\((.*)\\).*$"
@@ -94,8 +144,8 @@ countLinks <- function(test) {
   return(n)
 }
 
-# s <- "![logo1 globe1](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png \"Icône de globe\") ![logo2 globe2](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png \"Icône de globe\"){: .img-rdp-news-thumb }"
-# getImgs(s)
+# myLine <- "![logo1 globe1](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png \"Icône de globe\") ![logo2 globe2](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png \"Icône de globe\"){: .img-rdp-news-thumb }"
+# getImgs(myLine)
 getImgs <- function(test) {
   n <- countLinks(test)
   out <- vector(mode="list")
@@ -104,4 +154,12 @@ getImgs <- function(test) {
     out[[i]] <- imgPar(imgLink)
   }
   return(out)
+}
+
+cleanYear <- function(year) {
+  l <- list.files(sprintf("%s/%d", rdpFolder, year), "-new.md", full.names = T)
+  for(elt in l) {
+    file.rename(elt, gsub("-new.md", ".md", elt))
+    file.remove(elt)
+  }
 }
