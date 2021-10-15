@@ -1,5 +1,5 @@
 # Géotribu
-Reformater, nettoyer, analyser Géotribu
+Reformater, nettoyer, analyser les revues de presse [Géotribu](http://static.geotribu.fr/)
 
 ## `reformatRdp`
 Exemple d'une rdp mal formatée : https://static.geotribu.fr/rdp/2011/rdp_2011-12-23/#open-data
@@ -22,21 +22,22 @@ Reformate les cas suivants :
 
 ## TODO
 - [x] Reformater les titres
-- [ ] Trouver les liens morts : images
+- [ ] Trouver les liens morts : images,...
 - [ ] Créer un JSON depuis une rdp :
 	- thumbnail
 	- catégorie
 	- liens
 	- images
 	- technos identifiées
+- Libérer le JSON
 
 ## VIZ
-- Compter les cat?gories barplot avec d3
-- voir adjectif apr?s carte
-- voir les noms de domaines les plus fr?quents
-- voir les technos dont on a parl?
-- suivre la quantit? de rdps dans le temps, l? o? il n'y en a pas
-- voir le mot cl? QGIS, MapBox, IGN, OpenData, Data, Data Science, Intelligence artificielle
+- Compter les catégories barplot avec d3
+- voir adjectif après carte
+- voir les noms de domaines les plus fréquents
+- voir les technos dont on a parlé
+- suivre la quantit? de rdps dans le temps, là où il n'y en a pas
+- voir le mot clé QGIS, MapBox, IGN, OpenData, Data, Data Science, Intelligence artificielle
 - Les jours de publication de la rdp
 - beeswarm ou word cloud temporel
 - topic modeling ?
@@ -44,4 +45,4 @@ Reformate les cas suivants :
 - Nb de news
 - En fonction du logo : type de news
 - Transformer les news en JSON
-- Sortie de la semaine en niveau 4..
+- Sortie de la semaine en niveau 4, doit être en niveau 2..
