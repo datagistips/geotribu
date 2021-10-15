@@ -1,24 +1,24 @@
 myLine <- "![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**Filtres temporels dans GvSIG"
 
+# myLine <- "### L'Open Data en image** tototototo"
+# myLine <- "## L'Open Data en image** tototototo"
+# myLine <- "L'Open Data en image** tototototo"
+# myLine <- " **OpenLayers Mobile**"
 isNotWellFormatted <- function(myLine) {
   grepl("^(###?\\s)?.*\\*\\*", myLine)
 }
 
-# myLine <- "### L'Open Data en image** tototototo"
-# myLine <- "## L'Open Data en image** tototototo"
-isNotWellFormatted2 <- function(myLine) {
-  grepl("^###?\\s?\\*\\*", myLine)
-}
-
-# myLine <- "L'Open Data en image** tototototo"
-isNotWellFormatted3 <- function(myLine) {
-  grepl("^\\s?(.*)\\*\\*(.*)", myLine)
-}
-
-# myLine <- " **OpenLayers Mobile**"
-isNotWellFormatted4 <- function(myLine) {
-  grepl("^\\s?\\*\\*.*\\*\\*", myLine)
-}
+# isNotWellFormatted2 <- function(myLine) {
+#   grepl("^###?\\s?\\*\\*", myLine)
+# }
+# 
+# isNotWellFormatted3 <- function(myLine) {
+#   grepl("^\\s?(.*)\\*\\*(.*)", myLine)
+# }
+# 
+# isNotWellFormatted4 <- function(myLine) {
+#   grepl("^\\s?\\*\\*.*\\*\\*", myLine)
+# }
 
 # countHashtags("## L'Open Data en image** tototototo")
 # countHashtags("### L'Open Data en image** tototototo")
@@ -30,6 +30,24 @@ countHashtags <- function(myLine) {
     if(grepl(sprintf("^%s\\s.*", hashtags), myLine)) n <- i
   }
   return(n)
+}
+
+writeLog <- function(logFile, myLine, newLine) {
+  write(myLine, file = logFile, append = TRUE)
+  write("\n\ndevient\n\n", file = logFile, append = TRUE)
+  write(newLine, file = logFile, append = TRUE)
+  write("----", file = logFile, append = TRUE)
+}
+
+# "![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**gvSIG** La 7ème édition des journées "
+isNotWellFormatted2 <- function(myLine) {
+  regex <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)\\*?\\*?(.*)"
+  grepl(regex, myLine)
+}
+
+reformatTitle2 <- function(myLine) {
+  regex <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)\\*?\\*?(.*)"
+  str_replace(myLine, regex, "\\1{: .img-rdp-news-thumb \n### \\2\n\\3")
 }
 
 getNotWellFormatted <- function(lines) {
