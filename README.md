@@ -1,4 +1,4 @@
-# Geotribu
+# Géotribu
 Reformater, nettoyer, analyser Géotribu
 
 ## `reformatRdp`
