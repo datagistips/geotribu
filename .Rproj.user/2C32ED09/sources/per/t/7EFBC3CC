@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1634252906497.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2345485515",
+    "id" : "7EFBC3CC",
+    "lastKnownWriteTime" : 1634256538,
+    "last_content_update" : 1634256538215,
+    "path" : "C:/Users/mathieu/Desktop/geotribu/git/format-rdp.R",
+    "project_path" : "format-rdp.R",
+    "properties" : {
+        "cursorPosition" : "60,18",
+        "scrollLine" : "25",
+        "source_window_id" : ""
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

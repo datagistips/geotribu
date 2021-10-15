@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1634255877719.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3324895134",
+    "id" : "8E4DE3B1",
+    "lastKnownWriteTime" : 1634256715,
+    "last_content_update" : 1634256715945,
+    "path" : "C:/Users/mathieu/Desktop/geotribu/git/rename-files.R",
+    "project_path" : "rename-files.R",
+    "properties" : {
+        "cursorPosition" : "5,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
