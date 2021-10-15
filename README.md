@@ -1,7 +1,7 @@
 # Géotribu
 Reformater, nettoyer, analyser les revues de presse [Géotribu](http://static.geotribu.fr/)
 
-## `reformatRdp`
+## [`reformat.R`](https://github.com/datagistips/geotribu/blob/master/reformat.R)
 Exemple d'une rdp mal formatée : https://static.geotribu.fr/rdp/2011/rdp_2011-12-23/#open-data
 
 ### Avantn/Après, log
