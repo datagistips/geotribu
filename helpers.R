@@ -1,4 +1,33 @@
-reformatRdp <- function(rdp) {
+removeLeadingSpace <- function(myLine) {
+  trimws(myLine, which = "left")
+}
+
+reformatLine <- function(myLine) {
+  
+  newLine <- NULL
+  
+  # Avec hashtags ou pas
+  if(isNotWellFormatted1(myLine)) {
+    newLine <- reformatTitle1(myLine)
+  }
+  
+  # Avec une image au début
+  if(isNotWellFormatted2(myLine)) {
+    newLine <- reformatTitle2(myLine)
+  }
+  
+  # Suppression des espaces au début
+  if(isNotWellFormatted3(myLine)) {
+    newLine <- removeLeadingSpace(myLine)
+  }
+  
+  return(newLine)
+}
+
+reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
+  
+  # Variables
+  year <- gsub("^.*rdp_([0-9]*).*$", "\\1", rdp) %>% as.integer()
   
   # Lecture de la RDP
   con <- file(rdp, "r", encoding = "UTF-8")
@@ -9,49 +38,37 @@ reformatRdp <- function(rdp) {
   fileName <- gsub("^.*/(.*\\.md)$", "\\1", rdp)
   
   # Log file
-  logFile <- file.path(rdpFolder, gsub(".md", "-log.md", fileName))
+  logFile <- file.path(outputFolder, year, gsub(".md", "-log.md", fileName))
   if(file.exists(logFile)) file.remove(logFile)
   
   for(j in 1:length(lines)) {
     myLine <- lines[j]
     
-    reformatLine <- function(myLine) {
-      newLine <- NULL
-      # Avec hashtags ou pas
-      if(isNotWellFormatted1(myLine)) {
-        newLine <- reformatTitle1(myLine)
-      }
-      
-      # Avec une image au début
-      if(isNotWellFormatted2(myLine)) {
-        newLine <- reformatTitle2(myLine)
-      }
-      
-      return(newLine)
-    }
-    
     newLine <- reformatLine(myLine)
     
     # Réaffectation
     if(is.null(newLine)) {
+      # message("Pas de transformation")
       lines[j] <- myLine
     } else {
       lines[j] <- newLine
-      message(paste0(substr(myLine, 1, 100), "=>", substr(newLine, 1, 100)))
+      message(paste0(substr(myLine, 1, 100), "\n=>\n", substr(newLine, 1, 100)))
       writeLog(logFile, myLine, newLine)
+      message("\n")
     }
   }
   
   # Export de la nouvelle version
-  repairedRdp <- gsub(".md", "-new.md", rdp)
-  con <- file(repairedRdp)
+  repairedRdp <- file.path(outputFolder, year, fileName)
+  con <- file(repairedRdp, encoding = "UTF-8")
   writeLines(lines, con)
+  message("\n")
   close(con)
   
   # Récupérer les images d'un article (expérimental)
   # test <- lines[85]
   # getImgs(test)
-  message("\n")
+  
 }
 
 
@@ -63,6 +80,11 @@ myLine <- "![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto
 # myLine <- " **OpenLayers Mobile**"
 isNotWellFormatted1 <- function(myLine) {
   grepl("^(###?\\s)?.*\\*\\*", myLine)
+}
+
+# Espaxces devant, à l'exception du YAML du début (4 espaces)
+isNotWellFormatted3 <- function(myLine) {
+  grepl("^\\s{1,2}(\\#|\\!|\\[|[a-z]|[A-Z]|[0-9])", myLine, perl = TRUE)
 }
 
 # countHashtags("## L'Open Data en image** tototototo")
@@ -81,7 +103,7 @@ writeLog <- function(logFile, myLine, newLine) {
   write(myLine, file = logFile, append = TRUE)
   write("\n\ndevient\n\n", file = logFile, append = TRUE)
   write(newLine, file = logFile, append = TRUE)
-  write("----", file = logFile, append = TRUE)
+  write("\n----", file = logFile, append = TRUE)
 }
 
 # "![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**gvSIG** La 7ème édition des journées "
@@ -92,7 +114,7 @@ isNotWellFormatted2 <- function(myLine) {
 
 reformatTitle2 <- function(myLine) {
   regex <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)\\*?\\*?(.*)"
-  str_replace(myLine, regex, "\\1{: .img-rdp-news-thumb \n### \\2\n\\3")
+  str_replace(myLine, regex, "\\1{: .img-rdp-news-thumb }\n### \\2\n\\3")
 }
 
 getNotWellFormatted <- function(lines) {
@@ -113,7 +135,7 @@ reformatTitle1 <- function(myLine) {
 
 # Liste les fichiers du dossier, pour l'année concernée
 listRdpsForYear <- function(year) {
-  rdps <- list.files(sprintf("%s/%d", rdpFolder, year), full.names = T)
+  rdps <- list.files(sprintf("%s/%d", inputFolder, year), full.names = T)
   rdps <- rdps[which(grepl("^(?!.*(new|old)).*$", rdps, perl = TRUE))]
   rdps
 }
@@ -157,7 +179,7 @@ getImgs <- function(test) {
 }
 
 cleanYear <- function(year) {
-  l <- list.files(sprintf("%s/%d", rdpFolder, year), "-new.md", full.names = T)
+  l <- list.files(sprintf("%s/%d", inputFolder, year), "-new.md", full.names = T)
   for(elt in l) {
     file.rename(elt, gsub("-new.md", ".md", elt))
     file.remove(elt)
