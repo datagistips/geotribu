@@ -1,3 +1,64 @@
+# Accessibility ----
+isAccessible <- function(link) {
+  grepl("^\\!\\[(.*)\\]\\(.* \".*\"\\)$", link)
+}
+
+addAccessibility <- function(imgLink) {
+  
+  # On récupère la fin de l'URL
+  # Par ex. pour "![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/gdal.png)"
+  # On prend gdal.png
+  stem <- gsub("\\!\\[.*\\]\\(.*/(.*)\\).*", "\\1", imgLink)
+  
+  # Le nom est gdal (on splitte par le point .)
+  imageName <- strsplit(stem, "\\.")[[1]][1]
+  # On remplace certains caractères par des espaces
+  imageName <- gsub("-", " ", imageName)
+  imageName <- gsub("_", " ", imageName)
+  
+  # On extrait la description de l'image si elle existe
+  # A savoir le alt.
+  # imgLink <- "![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/gdal.png)"
+  description <- gsub("\\!\\[(.*)\\].*", "\\1", imgLink)
+  # Si la description est vide, on y met le nom de l'image (sans l'extension)
+  description <- ifelse(description == "", imageName, description)
+  
+  # On récupère le lien http://...
+  link <- gsub("^.*\\((.*)\\).*", "\\1", imgLink)
+  
+  # La première partie est celle entre crochets : ![toto]
+  # Si la description est vide, on y met le nom de l'image (sans l'extension)
+  part1 <- sprintf("![%s]", description)
+  
+  # La seconde partie est celle entre parenthèses.
+  # On y ajoute le nom de l'image
+  part2 <- sprintf("(%s \"%s\")", link, description)
+  
+  # On colle les deux parties
+  newLink <- paste0(part1, part2)
+  
+  return(newLink)
+}
+
+reformatLinks <- function(lines) {
+  newLines <- lines
+  for(i in 1:length(lines)) {
+    myLine <- lines[i]
+    httpLinks <- str_extract_all(myLine, "\\[\\S*\\s?\\S*\\]\\(\\S+\\)") %>% unlist
+    imageLinks <- str_extract_all(myLine, "\\!\\[\\S*\\s?\\S*\\]\\(\\S+\\)") %>% unlist
+    for(imgLink in imageLinks) {
+      if(!isAccessible(imgLink)) {
+        newImgLink <- addAccessibility(imgLink)
+        message(imgLink, "\ndevient\n", newImgLink)
+        newLines[i] <- str_replace(newLines[i], fixed(imgLink), newImgLink) # !! fixed
+        message("---")
+      }
+    }
+  }
+  return(newLines)
+}
+
+# Leading space ----
 removeLeadingSpace <- function(myLine) {
   trimws(myLine, which = "left")
 }
@@ -112,6 +173,9 @@ reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
   
   # RELOCATE THUMBNAILS
   lines <- relocateThumbs(lines)
+  
+  # REFORMAT LINKS
+  lines <- reformatLinks(lines)
   
   # Export de la nouvelle version
   repairedRdp <- file.path(outputFolder, year, fileName)

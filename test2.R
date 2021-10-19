@@ -20,6 +20,7 @@ lines <- reformatTitles(lines)
 lines <- relevelTitles(lines)
 lines <- reformatLeadingSpace(lines)
 lines <- relocateThumbs(lines)
+lines <- reformatLinks(lines)
 
 grep("Earth as art", lines) -> w
 lines[w]
