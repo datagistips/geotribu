@@ -38,6 +38,7 @@ Reformate les cas suivants :
 	- technos identifiées
 - Libérer le JSON
 - [ ] Repositionner le log
+- [ ] relocateThumbs KO
 
 ## VIZ
 - Compter les catégories barplot avec d3

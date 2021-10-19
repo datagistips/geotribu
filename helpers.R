@@ -16,15 +16,19 @@ reformatLine <- function(myLine) {
     newLine <- reformatTitle2(myLine)
   }
   
-  # Suppression des espaces au début
-  if(isNotWellFormatted3(myLine)) {
-    if(!is.null(newLine)) {
-      myLine <- newLine
-    }
-    newLine <- removeLeadingSpace(myLine)
-  }
-  
   return(newLine)
+}
+
+reformatLeadingSpace <- function(lines) {
+  newLines <- lines
+  for(i in 1:length(lines)) {
+    myLine <- lines[i]
+    # Suppression des espaces au début
+    if(isNotWellFormatted3(myLine)) {
+      newLines[i] <- removeLeadingSpace(myLine)
+    }
+  }
+  return(newLines)
 }
 
 readRdp <- function(rdp) {
@@ -40,28 +44,46 @@ writeRdp <- function(lines, repairedRdp) {
   close(con)
 }
 
-relocateThumbs <- function(lines) {
-  newLines <- lines
+relevelTitles <- function(lines) {
   for(j in 1:length(lines)) {
     myLine <- lines[j]
-    if(grepl("\\!\\[.*\\]\\(.*\\)\\{\\: \\.img-rdp-news-thumb \\}", myLine)) {
-      print(j)
-      # On extrait un échantillon de texte
-      w <- c(j:(j+5))
-      # On recherche le titre
+    if(grepl("\\#\\#\\#\\#.*", myLine)) {
+      print("NIVEAU")
+      w <- (j+1:(j+10))
       myLines <- lines[w]
-      w <- grep("^\\#+.*", myLines)
-      k <- (j+(w-1))
-      # On ajoute l'image dans le corps de l'article
-      newLines[k] <- paste(lines[k], lines[j], sep="\n\n")
-      newLines[j] <- NA
+      w <- which(myLines == "" | grepl("\\{\\: \\.img-rdp-news-thumb \\}", myLines))
+      myLines <- myLines[-w]
+      w <- grep("\\#+", myLines)
+      myLines <- myLines[w]
+      if(grepl("\\#\\#\\#\\s.*", myLines[1])) {
+        newLine <- str_replace(myLine,"^####\\s(.*)", "## \\1")
+        lines[j] <- newLine
+        message(paste0(myLine, "\n=>\n", newLine))
+        message("\n")
+        # writeLog(logFile, myLine, newLine)
+      }
+    }
+  }
+  return(lines)
+}
+
+reformatTitles <- function(lines) {
+  newLines <- vector(mode = "list")
+  for(i in 1:length(lines)) {
+    myLine <- lines[i]
+    
+    newLine <- reformatLine(myLine)
+    
+    # Réaffectation
+    if(is.null(newLine)) {
+      newLines[i] <- myLine
+    } else {
+      newLines[[i]] <- newLine
     }
   }
   
-  # Clean : on enlève les éléments qui sont NA
-  newLines <- newLines[-which(sapply(newLines, is.na))]
-  
-  return(newLines)
+  res <- unlist(newLines)
+  return(res)
 }
 
 reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
@@ -80,43 +102,13 @@ reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
   if(file.exists(logFile)) file.remove(logFile)
   
   # CORRECTION DES TITRES EN GRAS -> H3
-  for(j in 1:length(lines)) {
-    myLine <- lines[j]
-    
-    newLine <- reformatLine(myLine)
-    
-    # Réaffectation
-    if(is.null(newLine)) {
-      # message("Pas de transformation")
-      lines[j] <- myLine
-    } else {
-      lines[j] <- newLine
-      message(paste0(substr(myLine, 1, 100), "\n=>\n", substr(newLine, 1, 100)))
-      message("\n")
-      writeLog(logFile, myLine, newLine)
-    }
-  }
+  lines <- reformatTitles(lines)
   
   # NIVEAUX DE TITRES H4 -> H3
-  for(j in 1:length(lines)) {
-    myLine <- lines[j]
-    if(grepl("\\#\\#\\#\\#.*", myLine)) {
-      print("NIVEAU")
-      w <- (j+1:(j+10))
-      myLines <- lines[w]
-      w <- which(myLines == "" | grepl("\\{\\: \\.img-rdp-news-thumb \\}", myLines))
-      myLines <- myLines[-w]
-      w <- grep("\\#+", myLines)
-      myLines <- myLines[w]
-      if(grepl("\\#\\#\\#\\s.*", myLines[1])) {
-        newLine <- str_replace(myLine,"^####\\s(.*)", "## \\1")
-        lines[j] <- newLine
-        message(paste0(myLine, "\n=>\n", newLine))
-        message("\n")
-        writeLog(logFile, myLine, newLine)
-      }
-    }
-  }
+  lines <- relevelTitles(lines)
+  
+  # CORRECTION DES ESPACES DEVANT
+  lines <- reformatLeadingSpace(lines)
   
   # RELOCATE THUMBNAILS
   lines <- relocateThumbs(lines)
@@ -181,10 +173,47 @@ reformatTitle2 <- function(myLine) {
   regex2 <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)"  
   
   if(grepl(regex1, myLine)) {
-    return(str_replace(myLine, regex1, "\\1{: .img-rdp-news-thumb }\n### \\2\n\\3"))
+    title <- str_replace(myLine, regex1, "### \\2")
+    img <- str_replace(myLine, regex1, "\\1{: .img-rdp-news-thumb }")
+    body <- str_replace(myLine, regex1, "\\3")
+    return(list(title, img, body))
   } else if (grepl(regex2, myLine)) {
-    return(str_replace(myLine, regex2, "\\1{: .img-rdp-news-thumb }\n### \\2"))
+    title <- str_replace(myLine, regex2, "### \\2")
+    img <- str_replace(myLine, regex2, "\\1{: .img-rdp-news-thumb }")
+    return(list(title, img))
   }
+}
+
+relocateThumbs <- function(lines) {
+  newLines <- lines
+  for(i in 1:length(lines)) {
+    myLine <- lines[i]
+    if(grepl("^\\!\\[.*\\]\\(.*\\)\\{\\: \\.img-rdp-news-thumb \\}$", myLine)) {
+      print(i)
+      # On extrait un échantillon des textes
+      # jusqu'à la 5e ligne
+      w <- c(i:(i+5))
+      myLines <- lines[w]
+      # on vérifie si l'élément qui vient juste après est un titre
+      w <- w[which(myLines != "")][2] 
+      # Si c'est un titre...
+      if(grepl("^\\#+.*", lines[w])) {
+        title <- lines[w]
+        img <- lines[i]
+        #...on ajoute l'image dans le corps de l'article
+        newLines[w] <- paste0(title, "\n\n", img, "\n") # !! utiliser plutôt une liste
+        # On commente la ligne originelle qui comprend l'image
+        newLines[i] <- sprintf("<!--%s-->", img)
+      }
+    }
+  }
+  
+  # Clean : on enlève les éléments qui sont NA
+  # w <- which(sapply(newLines, is.na))
+  
+  # res <- unlist(newLines)
+  
+  return(newLines)
 }
 
 getNotWellFormatted <- function(lines) {
@@ -196,11 +225,14 @@ reformatTitle1 <- function(myLine) {
   hashtags <- rep("#", countHashtags(myLine)) %>% paste(collapse="")
   if(hashtags == "") {
     regex <- "^\\s?(?:\\*\\*)?(.*)\\*\\*\\s?(.*)$"
-    str_replace(myLine, regex, "### \\1\n\\2")
+    title <- str_replace(myLine, regex, "### \\1")
+    body <- str_replace(myLine, regex, "\\2")
   } else {
     regex <- sprintf("^(?:%s?\\s)?(.*)\\*\\*\\s?(.*)$", hashtags)
-    str_replace(myLine, regex, sprintf("%s \\1\n\\2", hashtags))
+    title <- str_replace(myLine, regex, sprintf("%s \\1", hashtags))
+    body <- str_replace(myLine, regex, "\\2")
   }
+  return(list(title, body))
 }
 
 # Liste les fichiers du dossier, pour l'année concernée

@@ -1,121 +1,137 @@
 ---
-title: "Revue de presse du 30 décembre 2011"
+title: "Revue de presse du 23 décembre 2011"
 authors:
     - Geotribu
 categories:
     - revue de presse
-date: 2011-12-30
-description: "Revue de presse du 30 décembre 2011"
+date: 2011-12-23
+description: "Revue de presse du 23 décembre 2011"
 tags:
-    - JSTS
-    - OpenStreetMap
-    - SpatiaLite
+    - GDAL
+    - GeoExt
+    - GeoNetwork
+    - GeoServer
+    - GéoSource
+    - GeoTools
+    - gvSIG
+    - HTML5
+    - OGR
+    - open data
+    - pgRouting
 ---
 
-# Revue de presse du 30 décembre 2011
+# Revue de presse du 23 décembre 2011
 
-![champagne.jpg](http://geotribu.net/sites/default/files/Tuto/img/Blog/champagne.jpg) 52 semaines - 52 revues de presse !!! Nous avons réussi à tenir nos engagements. Ce n'est pas une sinécure - le temps nous manquant parfois. Mais le plaisir de vous voir nombreux à nous lire nous incite à continuer à écrire, à vous faire partager nos découvertes et parfois à faire du lobbying pour des causes - géographiques - qui nous semblent pertinentes. Cette année, nous sommes un peu plus nombreux pour alimenter ce blog.
-
- Pour l'année prochaine, que dire sinon que nous continuerons la revue de presse, que nous rédigerons de nouveaux tutos, une mise à jour du site, des applications, des jeux ... Que de boulot encore ! Si vous avez des idées pour faire évoluer ce blog, n'hésitez pas, les commentaires sont là pour ça.
-
- Donc revenons à moutons géographiques : cette semaine le portage de la Java Topology Suite en [Javascript](#news11), le projet [Ecosphere](#news12), un [palmarès](#news13) des chouettes cartes que l'on a vu passées, une [critique constructive](#news14) d'OSM, un [plugin QGIS](#news21) et un [plugin GvSIG](#news22), un sympathique [projet](#news23) sur l'évolution des territoires, etc.
-
-## Sorties de la semaine
-
-NA
-
-### JavaScript Topology Suite
-
- ![jsts.png](https://cdn.geotribu.fr/img/Blog/jsts.png){: .img-rdp-news-thumb }
-
- Vous connaissez très certainement Java Topology Suite (JTS), mais saviez-vous qu'il existe, grâce à [Björn Harrtell](https://github.com/bjornharrtell), un portage de cette librairie en langage JavaScript. Son nom est tout simplement [JSTS](https://github.com/bjornharrtell/jsts) pour JavaScript Topology Suite. Depuis peu, la version 0.11.0 est disponible. Bien que conçut au départ pour être principalement utilisé via [OpenLayers](https://openlayers.org/) cette nouvelle version vise justement à éliminer toutes les dépendances entre les deux librairies. De ce fait, vous pouvez dorénavant utiliser JSTS en "[stand alone](https://fr.wikipedia.org/wiki/Standalone)". Pour vous donner un aperçu des potentialités de cette librairie, n'hésitez pas à consulter les différents exemples ([buffer](http://bjornharrtell.github.com/jsts/examples/buffer.html), [overlay](http://bjornharrtell.github.com/jsts/examples/overlay.html), [triangulation](http://bjornharrtell.github.com/jsts/examples/triangulation.html)).
-
-NA
-
-### Spatialite 3.0 en version stable
-
- ![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/spatialite.png){: .img-rdp-news-thumb }
-
- Pour les nouveautés, nous vous recommandons de relire [ce PDF](http://www.gaia-gis.it/GEOS-advanced.pdf) (déjà annoncé en juillet) et de consulter [l'annonce officielle](http://groups.google.com/group/spatialite-users/browse_thread/thread/649f823546cbaf68) (en anglais). Si vous avez oublié à quoi servait Spatialite ou si vous voulez plus de documentation, allez sur [ce tutoriel Geotribu](http://www.geotribu.net/node/356), [la documentation en français](http://www.gaia-gis.it/gaia-sins/spatialite-cookbook-fr/index.html) ainsi que [ce blog](http://sites.google.com/site/sgbdspatialite/).
-
-#### Le "Best of" de l'année et celui à venir
-
-NA
-
-### Palmarès des cartes de l'année
-
- ![owni-logo.png](https://cdn.geotribu.fr/img/Blog/owni-logo.png){: .img-rdp-news-thumb }
-
- Nous vous avions déjà présenté ce [best of](http://owni.eu/2011/12/09/the-best-maps-of-2011/) des cartes de l'année lors d'un précédent billet. La version française de [Owni](http://owni.fr/) nous propose une [traduction](http://owni.fr/2011/12/29/carte-2011-bestof-data/) du billet initial. Pour ceux qui sont fâchés avec la langue de Shakespeare ou tout simplement pour redécouvrir ces cartes n'hésitez pas à aller y jeter un œil.
-
- ![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/liftarn_Witch_with_crystal_ball.jpg)**Madame Irma en direct
-
- Après avoir fait le tour des belles cartes de l'année, demandons à nos devins du SIG quelles seront les tendances des années à venir. Ainsi nous commençons avec [ce billet de Brian Timoney](http://mapbrief.com/2011/12/27/timoneys-geo-hot-list-for-2012/) qui donne pas mal de crédit à l'aspect visuel des cartes (Raphael, TileMill) et au traitement de données (R ). En attendant d'autres prévisions, bonne lecture du reste des news.
+![world_noel.png](http://geotribu.net/sites/default/files/Tuto/img/Blog/world_noel.png) Vous êtes déjà en vacances ou encore au bureau ? Mais est-ce une raison pour manquer la revue de presse de Geotribu. Cette semaine, nous aborderons notamment, la [librairie Google Vector Layer](#news11), les [journées internationales gvSIG](#news13), de [l'Open Data](#news87) mais aussi les [sorties de la semaine](#news88). Bonne lecture.
 
 ----
 
-## OpenStreetMap
+## Client
 
-NA
+<!--![google.png](https://cdn.geotribu.fr/img/logos-icones/entreprises_association/google/google.webp){: .img-rdp-news-thumb }-->
 
-### Analyse critique d'OpenStreetMap
+### Google Vector Layers
 
- ![Logo OpenStreetMap](https://cdn.geotribu.fr/img/logos-icones/OpenStreetMap/Openstreetmap.png){: .img-rdp-news-thumb }
+![google.png](https://cdn.geotribu.fr/img/logos-icones/entreprises_association/google/google.webp){: .img-rdp-news-thumb }
 
- Pourquoi OpenStreetMap ne parvient pas à remplacer les cartes officielles ou propriétaires ? Cette [question](http://www.cedricmoullet.com/news/whyopenstreetmapfailstoreplaceofficialbasemapsinasustainableway) pourrait sembler trolesque si elle n'était pas posée par le fameux Cédric Moullet. Que l'on soit d'accord ou non, les arguments avancés sont parfaitement recevables et j'avoue être d'accord avec bon nombre d'entre eux. D'ailleurs, j'adore ce type de billet un peu polémique qui à mon sens pousse à la réflexion ! Face aux réactions engendrées par ce 1er billet, l'auteur à ensuite [complété](http://www.cedricmoullet.com/news/whyopenstreetmapfailstoreplaceofficialorproprietarybasemapsinasustainablewayclarifications) son analyse en expliquant plus en détail son point de vue. Ces critiques nous force à améliorer ce projet. En effet, si nous souhaitons réellement être crédible face à des géants tels que Google Maps ou l'IGN, il faut être capable de disposer de processus de qualité ou de fonctionnalités aussi avancés. Mais, le temps joue pour nous et c'est là un de nos plus gros avantage, l'exhaustivité n'est qu'une question de patience et la qualité viendra ensuite.
+Ajouter des données KML à GoogleMaps est un jeu d'enfant. Mais cela se corse quand vous souhaitez intégrer d'autres formats provenant par exemple d'ArcGIS Server, GeoCommons ou encore CartoDB. Si vous êtes dans ce cas, sachez que Jason Sanford offre depuis peu une nouvelle librairie, nommée [Google Vector Layer](http://geojason.info/google-vector-layers/), permettant notamment de faciliter l'ajout de différentes sources et surtout la gestion de gros volumes de données. Pour cela, Google Vector Layer ne va pas afficher l'ensemble des données disponibles mais seulement celles correspondant à l'extension de la carte. Mais les potentialités de cette librairie ne s'arrêtent pas là. En effet, elle offre également un moteur de template pour les infobulles, une gestion facilitée de la symbologie ainsi qu'une intégration plus simple des données temps réel. Mais le plus simple est je pense de jeter un œil aux [démos](http://geojason.info/google-vector-layers/demos/) disponibles et si vous êtes convaincus, sachez que le code source est disponible sur [GitHub](https://github.com/JasonSanford/google-vector-layers)
 
-NA
+<!--![google.png](https://cdn.geotribu.fr/img/logos-icones/entreprises_association/google/google.webp){: .img-rdp-news-thumb }-->
 
-### Nestoria change pour OSM
+### Cartographie en HTML5
 
- ![nestoria.png](https://cdn.geotribu.fr/img/Blog/nestoria.png){: .img-rdp-news-thumb }
+![google.png](https://cdn.geotribu.fr/img/logos-icones/entreprises_association/google/google.webp){: .img-rdp-news-thumb }
 
- Suite à la précédente news, j'ai entendu quelques dents grincer. Mais rassurez-vous celle-ci devrait vous donner le sourire. En effet, [Nestoria](http://www.nestoria.fr/), un moteur de recherche dans l'immobilier, a récemment décidé de remplacer son interface cartographique initialement sur Google Maps pour OpenStreetMap. Mais ce qui est particulièrement intéressant, c'est que les auteurs [expliquent](http://blog.nestoria.co.uk/why-and-how-weve-switched-away-from-google-ma) les raisons qui ont motivé leur choix. Ces derniers sont :
+Nous avions déjà eu l'occasion d'aborder à plusieurs reprises la librairie [D3](http://mbostock.github.com/d3/). Celle-ci permet notamment de transformer vos données brutes en diagramme intelligible et compréhensible. Les [modes de représentation](http://mbostock.github.com/d3/ex/) sont multiples et il est bien évidemment possible d'utiliser la carte comme média de communication ([carte choroplète](http://mbostock.github.com/d3/ex/choropleth.html), [cartogram](http://mbostock.github.com/d3/ex/cartogram.html)). Néanmoins, ces exemples sont malheureusement figés. Impossible de zoomer ou de se déplacer. C'était sans compter le talent de [tokumine](http://vizzuality.com/team/stokumine) qui nous offre une [série d'exemples](https://github.com/Vizzuality/HTML5-experiments) alliant d3 et interactivité. Le code source utilisé est également disponible
 
-* Les données sont de qualité équivalentes voir meilleures
-* C'est une manière pour eux de continuer à supporter l'Open Data
-* La récente modification des conditions d'utilisation de Google Maps
-* L'éventail d'outils et d'applications autour d'OSM est aujourd'hui suffisamment mature
-  Encore un joli trophée à ajouter au tableau de chasse d'OpenStreetMap :smile: !
+### gvSIG
+![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif){: .img-rdp-news-thumb }
+La 7ème édition des journées internationales de gvSIG s'est déroulée du 30 novembre au 2 décembre derniers à Valence. Les publications, articles, posters et présentations de l’évènement sont disponibles sur le site officiel. Attention, hispanophobes s'abstenir car que la page soit disponible [en anglais](http://jornadas.gvsig.org/comunicaciones/reports/view?set_language=en) et [en espagnol](http://jornadas.gvsig.org/comunicaciones/ponencias/view?set_language=es), ne change rien : tous les contenus sont en espagnol. L'évènement se déroulait à Valence et le projet est profondément ancré dans la langue de Cervantès. Qu'importe, le logiciel est disponible en beaucoup de langues différentes et gagnerait à être davantage connu des aficionados de Molière ! Pour Noël, offrez-vous (gratuit et autonome) une découverte du cousin de QGIS : [votre cadeau opensource](http://www.gvsig.org/web/) !
 
-#### Au temps pour vous
+<!--![Logo OpenStreetMap](https://cdn.geotribu.fr/img/logos-icones/OpenStreetMap/Openstreetmap.png){: .img-rdp-news-thumb }-->
 
- En cette période de fin d'année, les bilans, rétrospectives de l'année qui s'achève, perspectives pour celle à venir, fleurissent de partout. Le temps est donc à l'honneur, ça tombe bien puisqu'il devient de plus en plus une donnée à analyser dans les SIG et surtout il a peuplé mes flux RSS toute la semaine !
+### Calculer des itinéraires avec OpenStreetMap
 
-NA
+![Logo OpenStreetMap](https://cdn.geotribu.fr/img/logos-icones/OpenStreetMap/Openstreetmap.png){: .img-rdp-news-thumb }
 
-### Time manager pour QGIS
+Cette semaine, grâce à [Martin Laloux](http://www.portailsig.org/users/gene) du [PortailSIG](http://www.portailsig.org), nous apprendrons comment [calculer un itinéraire](http://www.portailsig.org/content/osm2po-ou-le-calcul-simple-d-itineraires-avec-les-donnees-openstreetmap) à partir des données [OpenStreetMap](https://www.openstreetmap.org). Pour cela l'auteur nous présente un outil nommé [osm2po](http://osm2po.de/). Ce dernier a la particularité d'être à la fois un moteur de routage (ça se dit ??) mais aussi un convertisseur permettant d'exploiter les résultats obtenus dans Postgresql. Mais le mieux, est de consulter le billet de Martin qui présente toutes les étapes nécessaires. Pour ceux qui veulent en savoir un peu plus sur PgRouting, un autre article est disponible sur [le blog "l'aménagerie"](http://elcep.legtux.org/?p=324). Remercions dans tous les cas, [UnderDark](https://twitter.com/#!/underdarkGIS), la contributrice anglophone à l"origine du contenu des deux cas présentés. N'hésitez pas à visiter [son blog : c'est une mine](http://underdark.wordpress.com/)
 
- ![qgis.png](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/qgis.png){: .img-rdp-news-thumb }
+## Open Data
 
- Gary Sherman, auteur du blog [Spatial Galaxy](http://spatialgalaxy.net/), s'est lancé l'idée de présenter un plugin de Quantum GIS par semaine : [the Plugin of the week](http://spatialgalaxy.net/tag/plugins-2/). Il commence donc avec le plugin Time Manager dont il explique succinctement les préalables et le fonctionnement : [son article](http://spatialgalaxy.net/2011/12/23/qgis-plugin-of-the-week-time-manager/) et [le site du projet sur github](https://github.com/anitagraser/TimeManager).
+![](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png)Bien que le mouvement Open Source et Open Data soient par nature différents, il n'empêche que la philosophie qui les anime et la même. Preuve en est, la plateforme qui propulse OpenData.gov, [l'Open Data Américain, devient Open Source](http://www.bulletins-electroniques.com/actualites/68571.htm). Cette libération du code est, comme j'aime à la rappeler lors de mes interventions, un contrat gagnant/gagnant pour tout le monde. En effet, si une communauté suffisante se créée, cela permettra de faire évoluer l'outil à moindre coût et pour les utilisateurs c'est l'assurance de disposer d'une plateforme pérenne. Le [code source](https://github.com/opengovplatform/opengovplatform) est disponible sur GitHub.
 
- ![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**Filtres temporels dans GvSIG
+<!--![Open Data - logo générique](https://cdn.geotribu.fr/img/logos-icones/divers/opendata.jpg){: .img-rdp-news-thumb }-->
 
- Au lendemain de Noël, l'animateur du [blog de GvSIG](http://blog.gvsig.org/) indique l'intégration des filtres temporels dans le logiciel : [l'article](http://blog.gvsig.org/2011/12/26/temporal-filters-in-gvsig/).
+### Debug data.gouv.fr
 
-NA
+![Open Data - logo générique](https://cdn.geotribu.fr/img/logos-icones/divers/opendata.jpg){: .img-rdp-news-thumb }
 
-### Retour vers le futur du webmapping
+Depuis l'ouverture du portail data.gouv.fr il y a de cela 2 semaines, beaucoup de critiques pleuvent. Il faut dire qu'entre des formats propriétaires, des données illisibles à cause de leur qualité médiocre etc. il y a de quoi alimenter une levée de boucliers ! Si vous êtes aussi du genre à râler, [Regards citoyens](http://www.regardscitoyens.org/) a lancé un site pour contribuer à améliorer le portail de l'opendata francais : [Debug data.gouv.fr](http://www.debug-data-gouv.fr/) . Un petit retour sur les données disponibles lors de leur intégration dans [Data-Publica](http://www.data-publica.com/) est disponible sur [le blog de la société](http://www.data-publica.com/content/2011/12/data-publica-importe-et-indexe-l%E2%80%99ensemble-des-donnees-de-data-gouv-fr/)
 
- ![pastmapper.png](https://cdn.geotribu.fr/img/Blog/pastmapper.png){: .img-rdp-news-thumb }
+## Sortie de la semaine
 
- Pastmapper est un projet qui propose de vectoriser les plans et cartes historiques de façon à pouvoir comparer ensuite deux lieux à deux époques différentes sur Google Maps (Arnaud ne devrait pas tarder à essayer de les convertir à OSM). En plus d'être intéressant et sympathique, le projet est ambitieux puisqu'il souhaite également numériser les types de commerces et les îlots habités ! On peut voir ce que çà donne avec l'exemple de [San Francisco en 1883](http://www.pastmapper.com/map/1853/) avant d'aller voir le [site du projet](http://blog.pastmapper.com/).
+<!--![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/gdal.png){: .img-rdp-news-thumb }-->
 
-#### Découverte
+### Sortie de GDAL 1.9 beta 2 et petit récapitulatif des ressources importantes du projet
 
-NA
+![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/gdal.png){: .img-rdp-news-thumb }
 
-### Ecosphere
+On se rapproche doucement de la "release" stable de GDAL 1.9. Celle-ci apporte des nouveautés intéressantes. Ainsi vous pouvez par exemple, [utiliser des données distantes](http://erouault.blogspot.com/2011/12/seamless-access-to-remote-global-multi.html) puis les consolider sans avoir besoin de télécharger sur votre poste. Pour un aperçu de l'ensemble des nouvelles fonctionnalités, nous vous invitons à consulter [les infos liées à la release](http://trac.osgeo.org/gdal/wiki/Release/1.9.0-News). Même si ce n'est pas lié directement aux nouvelles fonctionnalités, nous en profitons pour vous faire découvrir comment faire [des effets de relief](http://linfiniti.com/2011/12/creating-coloured-rasters-with-gdal/) avec GDAL. Pour le manuel de référence en français de la version 1.9, allez sur <http://gdal.gloobe.org/>. Si vous avez besoin de manipuler ogr/gdal via Python, un [petit rappel sur l'API](http://gdal.org/python/) ne peut pas faire de mal. Toujours en Python, si vous voulez séparer vos environnements, [ce guide](http://tylerickson.blogspot.com/2011/09/installing-gdal-in-python-virtual.html) sera votre ami. Nous vous rappelons aussi l'existence de [ce très bon guide](http://georezo.net/forum/viewtopic.php?pid=162315#p162315) sur la partie raster. N'oublions pas non plus [le site officiel du projet](http://www.gdal.org). N'hésitez pas à nous faire remonter d'autres sources sur GDAL si nous les avons oubliés
 
- ![ecosphere.png](https://cdn.geotribu.fr/img/Blog/ecosphere.png){: .img-rdp-news-thumb }
+<!--![logo globe](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png "Icône de globe"){: .img-rdp-news-thumb }-->
 
- Cette fin d'année s'est tenu à Durban la 17ème Conférence des Nations Unies dont le thème a porté sur le changement climatique. Si vous vous attendiez à de grands changements, rassurez-vous, nos dirigeants ont comme d'habitude assuré. Cela ne sera pas encore pour cette année que nous aurons une véritable politique environnementale à l'échelle mondiale. La faute certainement à la crise, au père noël ou que sais-je encore. Mais bon, nous ne sommes pas là pour parler politique mais plutôt du fantastique projet [CNN Ecosphere Project](http://cnn-ecosphere.com/). Cette application agrège par thématique tous les tweets publiés avec le hashtag #cop17. Plusieurs points intéressants sont à noter. Tout d'abord, la volonté d'interaction entre d'une part les participants et d'autre part la communauté Twitter. En effet, pendant la conférence un hologramme de l'application est projeté afin que les participants puissent observer les réactions engendrées par leurs discussions. Deuxièmement, la technologie utilisée. La "solution de facilité" aurait été d'utiliser du Flash. Mais l’agence Heimat Berlin qui a conçu l'application a décidé de se baser sur du HTML 5. Bravo pour cette très belle réalisation ! A quand une ouverture du code source :smile: ?
+### Fiona passe en 0.5
 
-NA
+![logo globe](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png "Icône de globe"){: .img-rdp-news-thumb }
 
-### Carte avec des sons
+Non ce n'est pas de la fiancée de Shrek dont nous allons parler (ok, ok je sors mais c'était tentant !) mais d'une surcouche ajoutée à OGR. [Sean Gillies](http://sgillies.net/), participant actif et bien connu de l'OpenSource est l'auteur de cette librairie. [Fiona](https://github.com/sgillies/Fiona) se veut être une alternative plus élégante à l'API existante. Au passage, j'en profite également pour signaler ce [post](http://www.neogeo-online.net/blog/archives/1649/) paru sur NeoGeo Online qui aborde notamment cette librairie
 
- ![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/folder_sound.png){: .img-rdp-news-thumb }
+<!--![geotools.png](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/geotools.png){: .img-rdp-news-thumb }-->
 
- Quand on pense carte de son, on pense nuisance sonore, aéroports, murs antibruits, voisinage. Dans ce cas de figure, nous vous proposons une autre approche de cette problématique. Après avoir piqué votre curiosité, nous vous invitons à lire [ce billet de blog](http://podcast.blog.lemonde.fr/2011/12/20/une-carte-sonore-de-montreal/) et à ne pas oublier de visiter les liens proposés. Bonne immersion sonore :)
+### Nouvelle version de GeoTools
+
+![geotools.png](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/geotools.png){: .img-rdp-news-thumb }
+
+La librairie géospatiale en Java de l'OSGeo sort en version 2.7.4 en corrigeant quelque 39 bugs et en apportant quelques améliorations et nouveautés. [Site de GeoTools](http://geotoolsnews.blogspot.com/2011/12/geotools-274-released.html)
+
+<!--![geoserver.png](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/geoserver.png){: .img-rdp-news-thumb }-->
+
+### GeoServer version 2.1.3
+
+![geoserver.png](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/geoserver.png){: .img-rdp-news-thumb }
+
+Restons dans le domaine de la correction de bugs avec la [sortie de GeoServer en version 2.1.3](http://blog.geoserver.org/2011/12/21/geoserver-2-1-3-released/). Néanmoins, nous pouvons noter quelques améliorations comme l'ajout de l'authentification pour les couches WMS en cascade ou encore le support de processus WPS asynchrones.Plus d'infos sont disponibles sur le [changelog](http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=10311&version=17865). Il faut aussi noter que Geoserver dispose maintenant d'une documentation en français issue de la traduction de la version anglaise. Ce travail a été effectué dans le cadre de Georchestra, une IDS (Infrastructure de Données Spatiales). Pour en savoir plus, allez sur [l'annonce officielle](http://blog.georchestra.org/post/2011/12/17/GeoServer-%3A-traduction-de-la-doc-en-fran%C3%A7ais)
+
+<!--![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/divers/geonetwork-logo.png){: .img-rdp-news-thumb }-->
+
+### Nouvelle version de GéoSource
+
+![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/divers/geonetwork-logo.png){: .img-rdp-news-thumb }
+
+Le "Geonetwork à la sauce française", développé principalement par le BRGM, vient aussi de publier une nouvelle version. De très bonnes nouvelles en termes de performance et de gros efforts sur la documentation et l'assistance sont au menu de cette dernière mouture. [L'excellent NeoGeo passe en revue les principales nouveautés de cette version](http://www.neogeo-online.net/blog/archives/1660/)
+
+<!--![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/geoext.png){: .img-rdp-news-thumb }-->
+
+### GeoExt version 1.1
+
+![](https://cdn.geotribu.fr/img/logos-icones/logiciels_librairies/geoext.png){: .img-rdp-news-thumb }
+
+Lors de la dernière revue de presse, nous vous annoncions la sortie de la Release Candidate. Cette semaine c'est au tour de la version [stable](http://geoext.blogspot.com/2011/12/announcing-geoext-11.html). Tous les détails sur cette nouvelle version [ici](http://trac.geoext.org/wiki/Release/1.1/Notes). Le code source est téléchargeable sur [Github](https://github.com/geoext/geoext)
+
+## Projets artistiques
+
+<!--![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/pegman.png){: .img-rdp-news-thumb }-->
+
+### The Nine Eyes of Google Street View
+
+![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/pegman.png){: .img-rdp-news-thumb }
+
+La toute nouvelle maison d'éditions [Jean Boîte](http://jean-boite.fr/) publie une monographie de l'artiste [Jon Rafman](http://jonrafman.com/) inspirée de son projet [9 eyes](http://9-eyes.com/). C'est un recueil bilingue de 160 pages en couleur de photos insolites trouvées en se baladant sur Google Street View
+
+<!--![logo globe](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png "Icône de globe"){: .img-rdp-news-thumb }-->
+
+### Song Map
+
+![logo globe](https://cdn.geotribu.fr/img/internal/icons-rdp-news/world.png "Icône de globe"){: .img-rdp-news-thumb }
+
+[Song Map](http://www.wearedorothy.com/art/song-map-signed-and-stamped-limited-edition/) est une carte urbaine réalisée par le collectif [Dorothy](http://www.wearedorothy.com/) où les noms de rues ont été remplacés par des titres de chansons. L'avenue la plus importante est bien entendu Highway to hell! Pour les amateurs de musique, la carte peut également s'accompagner d'une playlist concoctée par les auteurs
