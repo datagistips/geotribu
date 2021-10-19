@@ -2,14 +2,19 @@
 Reformater, nettoyer, analyser les revues de presse [Géotribu](http://static.geotribu.fr/)
 
 ## [`reformat.R`](https://github.com/datagistips/geotribu/blob/master/reformat.R)
-Exemple d'une rdp mal formatée : https://static.geotribu.fr/rdp/2011/rdp_2011-12-23/#open-data
+Issue : https://github.com/geotribu/website/issues/443  
+PR : https://github.com/geotribu/website/pull/444  
 
-### Avantn/Après, log
-Exemple pour le 21 Janvier 2011 :
+### Exemples
+#### 21 Janvier 2011
 
-- rdp **avant** : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/2011/rdp_2011-01-21.md
-- rdp **après** : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/2011/rdp_2011-01-21-new.md
-- **log** des modifs : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/rdp_2011-01-21-log.md
+- Avant : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/2011/rdp_2011-01-21.md
+- Après : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/2011/rdp_2011-01-21-new.md
+- Log : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/rdp_2011-01-21-log.md
+
+#### 23 Décembre 2011
+- Avant : https://static.geotribu.fr/rdp/2011/rdp_2011-12-23/  
+- Après : https://preview-pullrequest-444--geotribu-preprod.netlify.app/rdp/2011/rdp_2011-12-23/
 
 ### Cas traités
 Reformate les cas suivants :
