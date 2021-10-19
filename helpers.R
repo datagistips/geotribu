@@ -18,10 +18,50 @@ reformatLine <- function(myLine) {
   
   # Suppression des espaces au début
   if(isNotWellFormatted3(myLine)) {
+    if(!is.null(newLine)) {
+      myLine <- newLine
+    }
     newLine <- removeLeadingSpace(myLine)
   }
   
   return(newLine)
+}
+
+readRdp <- function(rdp) {
+  con <- file(rdp, "r", encoding = "UTF-8")
+  lines <- readLines(con)
+  close(con)
+  return(lines)
+}
+
+writeRdp <- function(lines, repairedRdp) {
+  con <- file(repairedRdp, encoding = "UTF-8")
+  writeLines(lines, con)
+  close(con)
+}
+
+relocateThumbs <- function(lines) {
+  newLines <- lines
+  for(j in 1:length(lines)) {
+    myLine <- lines[j]
+    if(grepl("\\!\\[.*\\]\\(.*\\)\\{\\: \\.img-rdp-news-thumb \\}", myLine)) {
+      print(j)
+      # On extrait un échantillon de texte
+      w <- c(j:(j+5))
+      # On recherche le titre
+      myLines <- lines[w]
+      w <- grep("^\\#+.*", myLines)
+      k <- (j+(w-1))
+      # On ajoute l'image dans le corps de l'article
+      newLines[k] <- paste(lines[k], lines[j], sep="\n\n")
+      newLines[j] <- NA
+    }
+  }
+  
+  # Clean : on enlève les éléments qui sont NA
+  newLines <- newLines[-which(sapply(newLines, is.na))]
+  
+  return(newLines)
 }
 
 reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
@@ -30,9 +70,7 @@ reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
   year <- gsub("^.*rdp_([0-9]*).*$", "\\1", rdp) %>% as.integer()
   
   # Lecture de la RDP
-  con <- file(rdp, "r", encoding = "UTF-8")
-  lines <- readLines(con)
-  close(con)
+  lines <- readRdp(rdp)
   
   # File name
   fileName <- gsub("^.*/(.*\\.md)$", "\\1", rdp)
@@ -41,6 +79,7 @@ reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
   logFile <- file.path(outputFolder, year, gsub(".md", "-log.md", fileName))
   if(file.exists(logFile)) file.remove(logFile)
   
+  # CORRECTION DES TITRES EN GRAS -> H3
   for(j in 1:length(lines)) {
     myLine <- lines[j]
     
@@ -53,17 +92,39 @@ reformatRdp <- function(rdp, outputFolder, inputEncoding = "UTF-8") {
     } else {
       lines[j] <- newLine
       message(paste0(substr(myLine, 1, 100), "\n=>\n", substr(newLine, 1, 100)))
-      writeLog(logFile, myLine, newLine)
       message("\n")
+      writeLog(logFile, myLine, newLine)
     }
   }
   
+  # NIVEAUX DE TITRES H4 -> H3
+  for(j in 1:length(lines)) {
+    myLine <- lines[j]
+    if(grepl("\\#\\#\\#\\#.*", myLine)) {
+      print("NIVEAU")
+      w <- (j+1:(j+10))
+      myLines <- lines[w]
+      w <- which(myLines == "" | grepl("\\{\\: \\.img-rdp-news-thumb \\}", myLines))
+      myLines <- myLines[-w]
+      w <- grep("\\#+", myLines)
+      myLines <- myLines[w]
+      if(grepl("\\#\\#\\#\\s.*", myLines[1])) {
+        newLine <- str_replace(myLine,"^####\\s(.*)", "## \\1")
+        lines[j] <- newLine
+        message(paste0(myLine, "\n=>\n", newLine))
+        message("\n")
+        writeLog(logFile, myLine, newLine)
+      }
+    }
+  }
+  
+  # RELOCATE THUMBNAILS
+  lines <- relocateThumbs(lines)
+  
   # Export de la nouvelle version
   repairedRdp <- file.path(outputFolder, year, fileName)
-  con <- file(repairedRdp, encoding = "UTF-8")
-  writeLines(lines, con)
+  writeRdp(lines, repairedRdp)
   message("\n")
-  close(con)
   
   # Récupérer les images d'un article (expérimental)
   # test <- lines[85]
@@ -113,8 +174,17 @@ isNotWellFormatted2 <- function(myLine) {
 }
 
 reformatTitle2 <- function(myLine) {
-  regex <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)\\*?\\*?(.*)"
-  str_replace(myLine, regex, "\\1{: .img-rdp-news-thumb }\n### \\2\n\\3")
+  #  ![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**gvSIG**
+  regex1 <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)\\*\\*(.*)"
+  
+  #  ![](http://www.geotribu.net/sites/default/files/Tuto/img/Blog/liftarn_Witch_with_crystal_ball.jpg)**Madame Irma en direct
+  regex2 <- "\\s?(\\!\\[.*\\]\\(.*\\))\\*\\*(.*)"  
+  
+  if(grepl(regex1, myLine)) {
+    return(str_replace(myLine, regex1, "\\1{: .img-rdp-news-thumb }\n### \\2\n\\3"))
+  } else if (grepl(regex2, myLine)) {
+    return(str_replace(myLine, regex2, "\\1{: .img-rdp-news-thumb }\n### \\2"))
+  }
 }
 
 getNotWellFormatted <- function(lines) {

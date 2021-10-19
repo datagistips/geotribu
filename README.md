@@ -26,6 +26,8 @@ Reformate les cas suivants :
 	![logo-gvsig_150_14.gif](http://geotribu.net/sites/default/files/Tuto/img/divers/logo-gvsig_150_14.gif)**gvSIG** lorem ipsum
 
 ## TODO
+- [ ] Créer des fonctions pour reformatTitle, relevelTitle
+- [ ] Repositionner les thumbnails
 - [x] Reformater les titres
 - [ ] Trouver les liens morts : images,...
 - [ ] Créer un JSON depuis une rdp :
@@ -35,6 +37,7 @@ Reformate les cas suivants :
 	- images
 	- technos identifiées
 - Libérer le JSON
+- [ ] Repositionner le log
 
 ## VIZ
 - Compter les catégories barplot avec d3
