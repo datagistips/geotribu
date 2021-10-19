@@ -5,7 +5,24 @@ Reformater, nettoyer, analyser les revues de presse [Géotribu](http://static.ge
 Issue : https://github.com/geotribu/website/issues/443  
 PR : https://github.com/geotribu/website/pull/444  
 
-### Exemples
+### Exemples de rdp mal formatées
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-01-21.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-01-28.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-02-04.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-02-11.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-03-18.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-05-13.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-06-03.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-06-24.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-07-08.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-07-15.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-07-22.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-08-12.md **
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-08-26.md
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-09-09.md **
+- https://raw.githubusercontent.com/geotribu/website/fix/old_rdp/content/rdp/2011/rdp_2011-09-16.md - espaces
+- ...
+
 #### 21 Janvier 2011
 
 - Avant : https://github.com/geotribu/website/blob/fenfyx2/content/rdp/2011/rdp_2011-01-21.md
@@ -15,6 +32,9 @@ PR : https://github.com/geotribu/website/pull/444
 #### 23 Décembre 2011
 - Avant : https://static.geotribu.fr/rdp/2011/rdp_2011-12-23/  
 - Après : https://preview-pullrequest-444--geotribu-preprod.netlify.app/rdp/2011/rdp_2011-12-23/
+
+### Voir les modifs
+https://preview-pullrequest-444--geotribu-preprod.netlify.app/rdp/2011/rdp_2011-12-23/
 
 ### Cas traités
 Reformate les cas suivants :
